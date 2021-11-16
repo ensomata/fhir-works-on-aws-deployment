@@ -93,6 +93,7 @@ functions:
           method: ANY
           path: /
           private: true
+          cors: true
       - http:
           authorizer:
             type: COGNITO_USER_POOLS
@@ -100,12 +101,15 @@ functions:
           method: ANY
           path: '{proxy+}'
           private: true
+          cors: true
       - http:
           method: GET
           path: /metadata
+          cors: true
       - http:
           method: GET
           path: /tenant/{tenantId}/metadata
+          cors: true
     handler: src/index.handler
     provisionedConcurrency: 5
     environment:

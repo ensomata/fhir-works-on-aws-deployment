@@ -19,7 +19,7 @@ const ensureAsyncInit = async (initPromise: Promise<any>): Promise<void> => {
 };
 
 async function asyncServerless() {
-    return serverless(generateServerlessRouter(await getFhirConfig(), genericResources), {
+    return serverless(generateServerlessRouter(await getFhirConfig(), genericResources, {}), {
         request(request: any, event: any) {
             request.user = event.user;
         },

@@ -15,7 +15,8 @@ python3 provision-user.py us-west-2_yk8jbgpWM 12pgvi3gsl32qp9h8lg130arr0 us-west
 
 client = boto3.client('cognito-idp', region_name=sys.argv[3])
 
-USERNAME = 'workshopuser'
+USERNAME = 'FhirWorksPractitioner'
+PASSWORD = 'FhirWorks!1'
 
 response = client.admin_create_user(
     UserPoolId=sys.argv[1],
@@ -41,7 +42,7 @@ response = client.admin_create_user(
             'Value': 'dummy@email.com'
         }
     ],
-    TemporaryPassword='Master123!',
+    TemporaryPassword=PASSWORD,
     MessageAction='SUPPRESS'
 )
 
@@ -49,7 +50,7 @@ response = client.initiate_auth(
     AuthFlow='USER_PASSWORD_AUTH',
     AuthParameters={
         'USERNAME': USERNAME,
-        'PASSWORD': 'Master123!'
+        'PASSWORD': PASSWORD
     },
 
     ClientId=sys.argv[2]
@@ -62,7 +63,7 @@ response = client.respond_to_auth_challenge(
     Session=sessionid,
     ChallengeResponses={
         'USERNAME': USERNAME,
-        'NEW_PASSWORD': 'Master123!'
+        'NEW_PASSWORD': PASSWORD
     }
 )
 
@@ -76,7 +77,7 @@ response = client.initiate_auth(
     AuthFlow='USER_PASSWORD_AUTH',
     AuthParameters={
         'USERNAME': USERNAME,
-        'PASSWORD': 'Master123!'
+        'PASSWORD': PASSWORD
     },
 
     ClientId=sys.argv[2]
